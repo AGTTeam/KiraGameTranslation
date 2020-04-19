@@ -1,0 +1,7 @@
+__pycache__
+
+build
+data*
+*.log
+*.exe
+notes.md
