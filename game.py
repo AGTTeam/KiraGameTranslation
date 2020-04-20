@@ -1,5 +1,7 @@
 from hacktools import common
 
+binrange = [554300, 670000]
+
 
 class ScenarioPart:
     num = 0
@@ -42,6 +44,13 @@ def readScenario(file):
                 f.seek(string.offset)
                 string.sjis = readShiftJIS(f)
     return parts
+
+
+def convertXAPName(file, type):
+    # "GCN0" = ".NCGR", "ECN0" = ".NCER", etc
+    type = "." + (type[:3])[::-1] + "R"
+    file = file.replace("_a.", ".").replace("_g.", ".")
+    return file.replace(".xap", type)
 
 
 def readShiftJIS(f, encoding="shift_jis"):

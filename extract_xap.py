@@ -1,10 +1,11 @@
 import os
+import game
 from hacktools import common
 
 
 def run():
     infolder = "data/extract/data/data/window/"
-    outfolder = "data/out_XAP/"
+    outfolder = "data/extract_XAP/"
     common.makeFolder(outfolder)
 
     common.logMessage("Extracting XAP to", outfolder, "...")
@@ -23,11 +24,9 @@ def run():
                     common.logError("Compressed file? Skipping")
                     continue
                 offset = f.readUInt()
-                # "GCN0" = ".NCGR", "ECN0" = ".NCER", etc
-                type = "." + (type[:3])[::-1] + "R"
-                file = file.replace("_a.", ".").replace("_g.", ".")
+                xapfile = game.convertXAPName(file, type)
                 common.makeFolders(outfolder + os.path.dirname(file))
                 f.seek(offset)
-                with common.Stream(outfolder + file.replace(".xap", type), "wb") as fout:
+                with common.Stream(outfolder + xapfile, "wb") as fout:
                     fout.write(f.read(size1))
     common.logMessage("Done! Extracted", len(files), "files")
