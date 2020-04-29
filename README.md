@@ -10,8 +10,8 @@ Run "tool extract --help" or "tool repack --help" for more info.
 Install [Python 3.8](https://www.python.org/downloads/) and pipenv.  
 Download [ndstool.exe](https://www.darkfader.net/ds/files/ndstool.exe).  
 Download xdelta.exe.  
-Run "pipenv install".  
-Run the tool with "pipenv run tool.py" or build with "pipenv run pyinstaller tool.spec".  
+Run `pipenv install`.  
+Run the tool with `pipenv run tool.py` or build with `pipenv run pyinstaller tool.spec`.  
 ## Text Editing
 Rename the \*\_output.txt files to \*\_input.txt (bin_output.txt to bin_input.txt, etc) and add translations for each line after the "=" sign.  
 To blank out a line, use a single "!". If just left empty, the line will be left untranslated.  
