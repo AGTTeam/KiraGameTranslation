@@ -1,6 +1,6 @@
 from hacktools import common
 
-binrange = [554300, 670000]
+binrange = [(554300, 670000)]
 
 
 class ScenarioPart:
