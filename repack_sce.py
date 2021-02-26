@@ -1,13 +1,14 @@
 import codecs
 import os
 import game
-from hacktools import common
+from hacktools import common, nitro
 
 
 def run():
     infolder = "data/extract/data/data/scenario/"
     outfolder = "data/repack/data/data/scenario/"
     infile = "data/scenario_input.txt"
+    fontfile = "data/replace/data/data/font/font.nftr"
     chartot = transtot = 0
 
     if not os.path.isfile(infile):
@@ -16,6 +17,10 @@ def run():
 
     common.copyFolder(infolder, outfolder)
     common.logMessage("Repacking SCE from", infile, "...")
+    # Read the glyph size from the font
+    if not os.path.isfile(fontfile):
+        fontfile = fontfile.replace("replace/", "extract/")
+    glyphs = nitro.readNFTR(fontfile).glyphs
     with codecs.open(infile, "r", "utf-8") as script:
         files = common.getFiles(infolder, ".bin")
         for file in common.showProgress(files):
@@ -42,6 +47,11 @@ def run():
                         if newsjis != "":
                             if newsjis == "!":
                                 newsjis = ""
+                            if newsjis.startswith("<<"):
+                                newsjis = common.wordwrap(newsjis[2:], glyphs, game.wordwrap2, game.detectTextCode)
+                                newsjis = common.centerLines("<<" + newsjis.replace("|", "|<<"), glyphs, game.wordwrap2, game.detectTextCode)
+                            else:
+                                newsjis = common.wordwrap(newsjis, glyphs, game.wordwrap, game.detectTextCode)
                             if add1f:
                                 newsjis += "<1F>"
                             f.seek(string.offset)
