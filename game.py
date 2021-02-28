@@ -1,6 +1,7 @@
 from hacktools import common
 
-binrange = [(554300, 670000)]
+binranges = [(0x8753c, 0xa3930)]
+freeranges = [(0x87b6c, 0x08811a)]
 wordwrap = 180
 wordwrap2 = 240
 
@@ -25,26 +26,30 @@ def readScenario(file):
     with common.Stream(file, "rb") as f:
         partnum = f.readUInt()
         for i in range(partnum):
-            section = ScenarioPart()
-            section.num = f.readUInt()
-            section.unk1 = f.readUInt()
-            section.unk2 = f.readUInt()
-            section.strings = []
-            parts.append(section)
-        for section in parts:
-            for j in range(section.num):
+            part = ScenarioPart()
+            part.num = f.readUInt()
+            part.unk1 = f.readUInt()
+            part.unk2 = f.readUInt()
+            part.strings = []
+            # common.logDebug("part", i, common.toHex(f.tell()), vars(part))
+            parts.append(part)
+        for part in parts:
+            for j in range(part.num):
                 string = ScenarioString()
-                string.unk1 = f.readUInt()
+                string.unk1 = f.readInt()
                 string.index = f.readUInt()
                 f.seek(4, 1)  # Always 0xffffffff
                 string.pointer = f.readUInt()
-                section.strings.append(string)
-        for section in parts:
-            for string in section.strings:
+                string.part = j
+                part.strings.append(string)
+                # common.logDebug("string", j, common.toHex(f.tell()), vars(string))
+        for part in parts:
+            for string in part.strings:
                 f.seek(string.pointer)
                 string.offset = f.readUInt()
                 f.seek(string.offset)
                 string.sjis = readShiftJIS(f)
+                # common.logDebug(common.toHex(f.tell()), vars(string))
     return parts
 
 
@@ -79,6 +84,7 @@ def readShiftJIS(f, encoding="shift_jis"):
 
 
 def writeShiftJIS(f, s, encoding="shift_jis"):
+    s = s.replace("～", "〜")
     x = 0
     while x < len(s):
         c = s[x]

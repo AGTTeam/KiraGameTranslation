@@ -1,0 +1,67 @@
+.nds
+
+.open "data/repack/arm9.bin",0x02000000
+  ;Redirect all error codes to the first one: WH_SYSSTATE_STOP
+  .org 0x0208811c
+  .area 0xec
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+  .endarea
+.close
