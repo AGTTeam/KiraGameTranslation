@@ -24,11 +24,9 @@ def run():
     with codecs.open(infile, "r", "utf-8") as script:
         files = common.getFiles(infolder, ".bin")
         for file in common.showProgress(files):
-            if file != "tutorial_05.bin":  # temp
-                continue
             section = common.getSection(script, file)
-            # if len(section) == 0:
-            #    continue
+            if len(section) == 0:
+                continue
             chartot, transtot = common.getSectionPercentage(section, chartot, transtot)
             # Repack the file
             common.logDebug("Processing", file, "...")
