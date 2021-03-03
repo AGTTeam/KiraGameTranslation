@@ -77,6 +77,8 @@ def run():
                             string.sjisoff = f.tell()
                             game.writeShiftJIS(f, newsjis)
                             addedstrings[newsjis] = string.sjisoff
+                    # Align bytes
+                    f.writeZero(f.tell() % 16)
                     # Write the new pointers
                     for string in part.strings:
                         ptroff = f.tell()

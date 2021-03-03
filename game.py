@@ -26,30 +26,33 @@ def readScenario(file):
     with common.Stream(file, "rb") as f:
         partnum = f.readUInt()
         for i in range(partnum):
+            partpos = f.tell()
             part = ScenarioPart()
             part.num = f.readUInt()
             part.unk1 = f.readUInt()
             part.unk2 = f.readUInt()
             part.strings = []
-            # common.logDebug("part", i, common.toHex(f.tell()), vars(part))
+            common.logDebug("part", i, common.toHex(partpos), vars(part))
             parts.append(part)
-        for part in parts:
+        for i in range(partnum):
+            part = parts[i]
             for j in range(part.num):
+                strpos = f.tell()
                 string = ScenarioString()
                 string.unk1 = f.readInt()
                 string.index = f.readUInt()
                 f.seek(4, 1)  # Always 0xffffffff
                 string.pointer = f.readUInt()
-                string.part = j
+                string.part = i
                 part.strings.append(string)
-                # common.logDebug("string", j, common.toHex(f.tell()), vars(string))
+                common.logDebug("string", j, common.toHex(strpos), vars(string))
         for part in parts:
             for string in part.strings:
                 f.seek(string.pointer)
                 string.offset = f.readUInt()
                 f.seek(string.offset)
                 string.sjis = readShiftJIS(f)
-                # common.logDebug(common.toHex(f.tell()), vars(string))
+                common.logDebug(common.toHex(string.offset), vars(string))
     return parts
 
 
