@@ -3,7 +3,7 @@ import click
 import game
 from hacktools import common, nds, nitro
 
-version = "1.0.1"
+version = "1.1.0"
 romfile = "data/dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
@@ -11,6 +11,7 @@ replacefolder = "data/replace/"
 outfolder = "data/repack/"
 bannerfile = "data/repack/banner.bin"
 patchfile = "data/patch.xdelta"
+fontfile = "data/replace/data/data/font/font.nftr"
 
 
 @common.cli.command()
@@ -31,7 +32,7 @@ def extract(rom, bin, sce, img, nsbmd):
         import extract_sce
         extract_sce.run()
     if all or img:
-        nitro.extractIMG("data/extract_XAP/", "data/out_IMG/")
+        nitro.extractIMG("data/extract_XAP/", "data/out_IMG/", readfunc=game.readImage)
     if all or nsbmd:
         nitro.extractNSBMD("data/extract/data/data/model/", "data/out_NSBMD/")
 
@@ -46,12 +47,16 @@ def repack(no_rom, bin, sce, img, nsbmd):
     all = not bin and not sce and not img and not nsbmd
     if all or bin:
         nds.repackBIN(game.binranges, game.freeranges)
+        font = fontfile
+        if not os.path.isfile(font):
+            font = font.replace("replace/", "extract/")
+        nitro.extractFontData(font, "data/font_data.bin")
         common.armipsPatch(common.bundledFile("bin_patch.asm"))
     if all or sce:
         import repack_sce
         repack_sce.run()
     if all or img:
-        nitro.repackIMG("data/work_IMG/", "data/extract_XAP/", "data/repack_XAP/", ".NCGR", None, None, True)
+        nitro.repackIMG("data/work_IMG/", "data/extract_XAP/", "data/repack_XAP/", ".NCGR", clean=True, readfunc=game.readImage)
     if all or nsbmd:
         common.copyFolder("data/extract/data/data/model/", "data/repack/data/data/model/")
         nitro.repackNSBMD("data/work_NSBMD/", "data/extract/data/data/model/", "data/repack/data/data/model/")

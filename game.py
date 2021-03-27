@@ -1,4 +1,4 @@
-from hacktools import common
+from hacktools import common, nitro
 
 binranges = [(0x8753c, 0xa3930)]
 freeranges = [(0x87b6c, 0x08811a)]
@@ -16,6 +16,7 @@ class ScenarioPart:
 class ScenarioString:
     unk1 = 0
     index = 0
+    unk2 = 0
     pointer = 0
     offset = 0
     sjis = ""
@@ -41,7 +42,7 @@ def readScenario(file):
                 string = ScenarioString()
                 string.unk1 = f.readInt()
                 string.index = f.readUInt()
-                f.seek(4, 1)  # Always 0xffffffff
+                string.unk2 = f.readUInt()
                 string.pointer = f.readUInt()
                 string.part = i
                 part.strings.append(string)
@@ -114,3 +115,23 @@ def detectTextCode(s, i=0):
     if s[i] == "<":
         return len(s[i:].split(">", 1)[0]) + 1
     return 0
+
+
+ignorepalindex = [
+    "kira_game/fukidasi.NCGR",
+    "kira_game/l_kira.NCGR",
+    "kira_game/touhyou.NCGR",
+    "menu/playmemo.NCGR",
+    "menu/single.NCGR",
+    "menu/story_restart.NCGR",
+    "menu/tuto_game.NCGR",
+]
+
+
+def readImage(infolder, file, extension):
+    palettefile = file.replace(extension, ".NCLR")
+    mapfile = file.replace(extension, ".NSCR")
+    cellfile = file.replace(extension, ".NCER")
+    ignorepal = file in ignorepalindex
+    palettes, image, map, cell, width, height = nitro.readNitroGraphic(infolder + palettefile, infolder + file, infolder + mapfile, infolder + cellfile, ignorepal)
+    return palettes, image, map, cell, width, height, mapfile, cellfile

@@ -26,6 +26,7 @@ def run():
         for file in common.showProgress(files):
             section = common.getSection(script, file)
             if len(section) == 0:
+                common.copyFile(infolder + file, outfolder + file)
                 continue
             chartot, transtot = common.getSectionPercentage(section, chartot, transtot)
             # Repack the file
@@ -42,7 +43,7 @@ def run():
                     for string in part.strings:
                         f.writeInt(string.unk1)
                         f.writeUInt(string.index)
-                        f.writeUInt(0xffffffff)
+                        f.writeUInt(string.unk2)
                         string.pointeroff = f.tell()
                         f.writeUInt(0)
                 addedstrings = {}
@@ -77,8 +78,8 @@ def run():
                             string.sjisoff = f.tell()
                             game.writeShiftJIS(f, newsjis)
                             addedstrings[newsjis] = string.sjisoff
-                    # Align bytes
-                    f.writeZero(f.tell() % 16)
+                    f.writeUInt(0)
+                    f.writeZero(16 - (f.tell() % 16))
                     # Write the new pointers
                     for string in part.strings:
                         ptroff = f.tell()
@@ -86,4 +87,5 @@ def run():
                         f.seek(string.pointeroff)
                         f.writeUInt(ptroff)
                         f.seek(ptroff + 4)
+                f.writeZero(16 - (f.tell() % 16))
     common.logMessage("Done! Translation is at {0:.2f}%".format((100 * transtot) / chartot))
