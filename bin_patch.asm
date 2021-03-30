@@ -1,8 +1,8 @@
 .nds
 
 .open "data/repack/arm9.bin",0x02000000
-  .org 0x02087b6c
-  .area 0x5af
+  .org 0x02088394
+  .area 0x127
     FONT_DATA:
     .import "data/font_data.bin",0,0x5f
     .align
@@ -37,7 +37,6 @@
     mov r0,0x1
     b SET_LINE_WIDTH_RETURN
     .pool
-
   .endarea
 
   .org 0x02021568
@@ -109,6 +108,37 @@
     .dw 0x02087b58
     .dw 0x02087b58
     .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+  .endarea
+
+  ; Redirect some more strings
+  .org 0x0201db54
+  .area 0x10
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+    .dw 0x02087b58
+  .endarea
+
+  .org 0x0201dc40
+  .area 0x4
+    .dw 0x02087b58
+  .endarea
+
+  .org 0x0201dcf8
+  .area 0x4
+    .dw 0x02087b58
+  .endarea
+
+  .org 0x0201dd90
+  .area 0x4
+    .dw 0x02087b58
+  .endarea
+
+  .org 0x0201def4
+  .area 0xc
     .dw 0x02087b58
     .dw 0x02087b58
     .dw 0x02087b58
