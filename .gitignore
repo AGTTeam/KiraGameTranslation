@@ -5,3 +5,5 @@ data*
 *.log
 *.exe
 notes.md
+armips
+ndstool
