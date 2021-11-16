@@ -3,7 +3,7 @@ import click
 import game
 from hacktools import common, nds, nitro
 
-version = "1.1.0"
+version = "1.1.1"
 romfile = "data/dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
@@ -34,7 +34,7 @@ def extract(rom, bin, sce, img, nsbmd):
     if all or img:
         nitro.extractIMG("data/extract_XAP/", "data/out_IMG/", readfunc=game.readImage)
     if all or nsbmd:
-        nitro.extractNSBMD("data/extract/data/data/model/", "data/out_NSBMD/")
+        nitro.extractNSBMD("data/extract/data/data/model/", "data/out_NSBMD/", readfunc=game.readNSBMD)
 
 
 @common.cli.command()
@@ -59,8 +59,10 @@ def repack(no_rom, bin, sce, img, nsbmd):
         nitro.repackIMG("data/work_IMG/", "data/extract_XAP/", "data/repack_XAP/", ".NCGR", clean=True, readfunc=game.readImage)
     if all or nsbmd:
         common.copyFolder("data/extract/data/data/model/", "data/repack/data/data/model/")
-        nitro.repackNSBMD("data/work_NSBMD/", "data/extract/data/data/model/", "data/repack/data/data/model/")
+        nitro.repackNSBMD("data/work_NSBMD/", "data/extract/data/data/model/", "data/repack/data/data/model/", writefunc=game.writeNSBMD)
     if not no_rom:
+        if os.path.isdir("data/replace_XAP/"):
+            common.mergeFolder("data/replace_XAP/", "data/repack_XAP/")
         import repack_xap
         repack_xap.run()
         if os.path.isdir(replacefolder):

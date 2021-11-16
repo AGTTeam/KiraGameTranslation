@@ -128,6 +128,17 @@ ignorepalindex = [
 ]
 
 
+transpnsbmd = [
+    "balloon/",
+    "bg006a_taikou",
+    "douchou_douchou",
+    "giwaku2a_giwaku2a",
+    "hanron_hanron",
+    "taikou1a_taikou1a",
+    "taikou2a_taikou2a",
+]
+
+
 def readImage(infolder, file, extension):
     palettefile = file.replace(extension, ".NCLR")
     mapfile = file.replace(extension, ".NSCR")
@@ -135,3 +146,17 @@ def readImage(infolder, file, extension):
     ignorepal = file in ignorepalindex
     palettes, image, map, cell, width, height = nitro.readNitroGraphic(infolder + palettefile, infolder + file, infolder + mapfile, infolder + cellfile, ignorepal)
     return palettes, image, map, cell, width, height, mapfile, cellfile
+
+
+def readNSBMD(file):
+    for transpname in transpnsbmd:
+        if transpname in file:
+            return True
+    return False
+
+
+def writeNSBMD(file, nsbmd):
+    for transpname in transpnsbmd:
+        if transpname in file:
+            return True
+    return False
