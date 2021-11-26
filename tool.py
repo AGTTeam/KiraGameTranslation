@@ -3,7 +3,7 @@ import click
 import game
 from hacktools import common, nds, nitro
 
-version = "1.1.1"
+version = "1.1.2"
 romfile = "data/dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
@@ -27,7 +27,7 @@ def extract(rom, bin, sce, img, nsbmd):
         import extract_xap
         extract_xap.run()
     if all or bin:
-        nds.extractBIN(game.binranges)
+        nds.extractBIN(game.binranges, writedupes=True)
     if all or sce:
         import extract_sce
         extract_sce.run()
