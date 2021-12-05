@@ -49,98 +49,189 @@
     b SET_LINE_WIDTH
     SET_LINE_WIDTH_RETURN:
 
+  .include "data/centering.asm"
+
   ;Redirect all error codes to the first one: WH_SYSSTATE_STOP
+  REPLACEMENT equ 0x02087b58
+
   .org 0x0208811c
   .area 0xec
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
   .endarea
 
   ; Redirect some more strings
+  .org 0x0201d4ac
+  .area 0x10
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+  .endarea
+
+  .org 0x0201d668
+    .dw REPLACEMENT
+    .skip 4
+    .dw REPLACEMENT
+
+  .org 0x0201d708
+    .dw REPLACEMENT
+
+  .org 0x0201d788
+    .dw REPLACEMENT
+
+  .org 0x0201db4c
+    .dw REPLACEMENT
+    .skip 4
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+
+  .org 0x0201dc40
+    .dw REPLACEMENT
+
+  .org 0x0201dcf8
+    .dw REPLACEMENT
+
+  .org 0x0201dd90
+    .dw REPLACEMENT
+
+  .org 0x0201def4
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+
+  .org 0x0201e0a4
+    .dw REPLACEMENT
+    .skip 4
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+
+  .org 0x0201e508
+    .dw REPLACEMENT
+
+  .org 0x0201e588
+    .dw REPLACEMENT
+
+  .org 0x0201e870
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+
+  .org 0x0201e96c
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .skip 4
+    .dw REPLACEMENT
+
+  .org 0x0201ea14
+    .dw REPLACEMENT
+
+  .org 0x0201eb20
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+
   .org 0x0201db54
   .area 0x10
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
   .endarea
 
   .org 0x0201dc40
-  .area 0x4
-    .dw 0x02087b58
-  .endarea
+    .dw REPLACEMENT
 
   .org 0x0201dcf8
-  .area 0x4
-    .dw 0x02087b58
-  .endarea
+    .dw REPLACEMENT
 
   .org 0x0201dd90
-  .area 0x4
-    .dw 0x02087b58
-  .endarea
+    .dw REPLACEMENT
 
   .org 0x0201def4
   .area 0xc
-    .dw 0x02087b58
-    .dw 0x02087b58
-    .dw 0x02087b58
+    .dw REPLACEMENT
+    .dw REPLACEMENT
+    .dw REPLACEMENT
   .endarea
+
+  .org 0x0208692c
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
+    .skip 8
+    .dw REPLACEMENT
 .close

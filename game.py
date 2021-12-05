@@ -1,9 +1,10 @@
 from hacktools import common, nitro
 
-binranges = [(0x8753c, 0xa3930)]
-freeranges = [(0x87b6c, 0x08811a)]
+binranges = [(0x8753c, 0xa3c87)]
+freeranges = [(0x869d0, 0x86b53), (0x87b6c, 0x8811a), (0x8821c, 0x8867f)]
 wordwrap = 180
 wordwrap2 = 240
+tempglyphs = {}
 
 
 class ScenarioPart:
@@ -88,7 +89,6 @@ def readShiftJIS(f, encoding="shift_jis"):
 
 
 def writeShiftJIS(f, s, encoding="shift_jis"):
-    s = s.replace("～", "〜")
     x = 0
     while x < len(s):
         c = s[x]
@@ -109,6 +109,28 @@ def writeShiftJIS(f, s, encoding="shift_jis"):
             f.write(c.encode(encoding))
         x += 1
     f.writeByte(0x00)
+
+
+def readBINString(f, encoding="shift_jis"):
+    s = common.detectEncodedString(f, encoding, [0x20, 0x25], [(0x03, 0x34), (0x03, 0x35), (0x03, 0x36), (0x03, 0x37)])
+    split = s.split("UNK(03", 1)
+    while len(split) > 1:
+        split2 = split[1].split(")", 1)
+        s = split[0] + "<col" + split2[0] + ">" + split2[1]
+        split = s.split("UNK(03", 1)
+    return s
+
+
+def writeBINString(f, s, maxlen=0, encoding="shift_jis"):
+    split = s.split("<col", 1)
+    while len(split) > 1:
+        split2 = split[1].split(">", 1)
+        s = split[0] + "UNK(03" + split2[0].zfill(2) + ")" + split2[1]
+        split = s.split("<col", 1)
+    if s.startswith("<<"):
+        s = common.wordwrap(s[2:], tempglyphs, wordwrap2, detectTextCode)
+        s = common.centerLines("<<" + s.replace("|", "|<<"), tempglyphs, wordwrap2, detectTextCode)
+    return common.writeEncodedString(f, s, maxlen, encoding)
 
 
 def detectTextCode(s, i=0):
