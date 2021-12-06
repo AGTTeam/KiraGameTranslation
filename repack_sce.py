@@ -21,6 +21,8 @@ def run():
     if not os.path.isfile(fontfile):
         fontfile = fontfile.replace("replace/", "extract/")
     glyphs = nitro.readNFTR(fontfile).glyphs
+    # Set glyph % to an arbitrary width, since it's used to replace character names
+    glyphs["%"].length = 60
     with codecs.open(infile, "r", "utf-8") as script:
         files = common.getFiles(infolder, ".bin")
         for file in common.showProgress(files):

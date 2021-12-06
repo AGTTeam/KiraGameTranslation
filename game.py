@@ -89,6 +89,7 @@ def readShiftJIS(f, encoding="shift_jis"):
 
 
 def writeShiftJIS(f, s, encoding="shift_jis"):
+    s = s.replace("～", "〜")
     x = 0
     while x < len(s):
         c = s[x]
@@ -152,12 +153,12 @@ ignorepalindex = [
 
 transpnsbmd = [
     "balloon/",
-    "bg006a_taikou",
-    "douchou_douchou",
-    "giwaku2a_giwaku2a",
-    "hanron_hanron",
-    "taikou1a_taikou1a",
-    "taikou2a_taikou2a",
+    "bg006a",
+    "douchou",
+    "giwaku2a",
+    "hanron",
+    "taikou1a",
+    "taikou2a",
 ]
 
 
@@ -180,5 +181,5 @@ def readNSBMD(file):
 def writeNSBMD(file, nsbmd):
     for transpname in transpnsbmd:
         if transpname in file:
-            return True
-    return False
+            return True, True, True
+    return False, False, False
