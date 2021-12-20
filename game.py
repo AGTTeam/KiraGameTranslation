@@ -154,6 +154,7 @@ ignorepalindex = [
 transpnsbmd = [
     "balloon/",
     "bg006a",
+    "bg042a",
     "douchou",
     "giwaku2a",
     "hanron",
