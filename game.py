@@ -1,7 +1,7 @@
 from hacktools import common, nitro
 
 binranges = [(0x8753c, 0xa3c87)]
-freeranges = [(0x869d0, 0x86b53), (0x87b6c, 0x8811a), (0x8821c, 0x8867f)]
+freeranges = [(0x869d0, 0x86b53), (0x87b6c, 0x8811a), (0x882dc, 0x8867f)]
 wordwrap = 180
 wordwrap2 = 240
 tempglyphs = {}

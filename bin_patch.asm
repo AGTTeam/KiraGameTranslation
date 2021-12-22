@@ -1,8 +1,8 @@
 .nds
 
 .open "data/repack/arm9.bin",0x02000000
-  .org 0x02088394
-  .area 0x127
+  .org 0x0208821c
+  .area 0xc0
     FONT_DATA:
     .import "data/font_data.bin",0,0x5f
     .align
