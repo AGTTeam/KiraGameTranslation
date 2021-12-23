@@ -113,7 +113,7 @@ def writeShiftJIS(f, s, encoding="shift_jis"):
 
 
 def readBINString(f, encoding="shift_jis"):
-    s = common.detectEncodedString(f, encoding, [0x20, 0x25], [(0x03, 0x34), (0x03, 0x35), (0x03, 0x36), (0x03, 0x37)])
+    s = common.detectEncodedString(f, encoding, [0x20, 0x25, 0x4c], [(0x03, 0x34), (0x03, 0x35), (0x03, 0x36), (0x03, 0x37)])
     split = s.split("UNK(03", 1)
     while len(split) > 1:
         split2 = split[1].split(")", 1)

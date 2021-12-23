@@ -3,7 +3,7 @@ import click
 import game
 from hacktools import common, nds, nitro
 
-version = "1.2.3"
+version = "1.2.4"
 romfile = "data/dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
