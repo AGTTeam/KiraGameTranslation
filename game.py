@@ -5,6 +5,15 @@ freeranges = [(0x869d0, 0x86b53), (0x87b6c, 0x8811a), (0x882dc, 0x8867f)]
 wordwrap = 180
 wordwrap2 = 240
 tempglyphs = {}
+scripttweaks = {
+    "story03.bin": [
+        (0x3c18, 0x0),  # 0x64
+    ],
+    "story06.bin": [
+        (0x4238, 0x0),  # 0x4a
+        (0x7888, 0x0),  # 0x6e
+    ]
+}
 
 
 class ScenarioPart:
@@ -34,7 +43,7 @@ def readScenario(file):
             part.unk1 = f.readUInt()
             part.unk2 = f.readUInt()
             part.strings = []
-            common.logDebug("part", i, common.toHex(partpos), vars(part))
+            common.logDebug("part", i, common.toHex(partpos), common.varsHex(part))
             parts.append(part)
         for i in range(partnum):
             part = parts[i]
@@ -47,14 +56,14 @@ def readScenario(file):
                 string.pointer = f.readUInt()
                 string.part = i
                 part.strings.append(string)
-                common.logDebug("string", j, common.toHex(strpos), vars(string))
+                common.logDebug("string", j, common.toHex(strpos), common.varsHex(string))
         for part in parts:
             for string in part.strings:
                 f.seek(string.pointer)
                 string.offset = f.readUInt()
                 f.seek(string.offset)
                 string.sjis = readShiftJIS(f)
-                common.logDebug(common.toHex(string.offset), vars(string))
+                common.logDebug(common.toHex(string.offset), common.varsHex(string))
     return parts
 
 

@@ -3,7 +3,7 @@ import click
 import game
 from hacktools import common, nds, nitro
 
-version = "1.2.4"
+version = "1.3.0"
 romfile = "data/dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
@@ -56,6 +56,15 @@ def repack(no_rom, bin, sce, img, nsbmd):
     if all or sce:
         import repack_sce
         repack_sce.run()
+        # Tweak a couple script files that have centered hardcoded text
+        for file in game.scripttweaks:
+            scriptin = infolder + "data/data/script/" + file
+            scriptout = scriptin.replace("extract", "repack")
+            common.copyFile(scriptin, scriptout)
+            with common.Stream(scriptout, "rb+") as f:
+                for tweak in game.scripttweaks[file]:
+                    f.seek(tweak[0])
+                    f.writeUInt(tweak[1])
     if all or img:
         nitro.repackIMG("data/work_IMG/", "data/extract_XAP/", "data/repack_XAP/", ".NCGR", clean=True, readfunc=game.readImage)
     if all or nsbmd:
