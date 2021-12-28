@@ -9,6 +9,9 @@ scripttweaks = {
     "story03.bin": [
         (0x3c18, 0x0),  # 0x64
     ],
+    "story05.bin": [
+        (0x4368, 0x0),  # 0x6e
+    ],
     "story06.bin": [
         (0x4238, 0x0),  # 0x4a
         (0x7888, 0x0),  # 0x6e
