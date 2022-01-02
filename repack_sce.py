@@ -65,9 +65,18 @@ def run():
                         if newsjis != "":
                             if newsjis == "!":
                                 newsjis = ""
-                            if newsjis.startswith("<<"):
-                                newsjis = common.wordwrap(newsjis[2:], glyphs, game.wordwrap2, game.detectTextCode)
-                                newsjis = common.centerLines("<<" + newsjis.replace("|", "|<<"), glyphs, game.wordwrap2, game.detectTextCode)
+                            if file == "scenario2.bin" and "|" not in newsjis:
+                                tryfit = common.wordwrap(newsjis, glyphs, game.wordwrapkira1, game.detectTextCode)
+                                if tryfit.count("|") > 0:
+                                    tryfit = common.wordwrap(newsjis, glyphs, game.wordwrapkira2, game.detectTextCode)
+                                    if tryfit.count("|") > 1:
+                                        tryfit = common.wordwrap(newsjis, glyphs, game.wordwrapkira3, game.detectTextCode)
+                                        if tryfit.count("|") > 1:
+                                            common.logError("Line too long", tryfit)
+                                newsjis = tryfit
+                            elif newsjis.startswith("<<"):
+                                newsjis = common.wordwrap(newsjis[2:], glyphs, game.wordwrapfull, game.detectTextCode)
+                                newsjis = common.centerLines("<<" + newsjis.replace("|", "|<<"), glyphs, game.wordwrapfull, game.detectTextCode)
                             else:
                                 newsjis = common.wordwrap(newsjis, glyphs, game.wordwrap, game.detectTextCode)
                         else:

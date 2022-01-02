@@ -2,8 +2,15 @@ from hacktools import common, nitro
 
 binranges = [(0x8753c, 0xa3c87)]
 freeranges = [(0x869d0, 0x86b53), (0x87b6c, 0x8811a), (0x882dc, 0x8867f)]
+# Wordwrap for regular lines
 wordwrap = 180
-wordwrap2 = 240
+# Wordwrap for full-screen lines
+wordwrapfull = 240
+# Wordwrap for the scenario2.bin file
+wordwrapkira1 = 150
+wordwrapkira2 = 110
+wordwrapkira3 = 135
+
 tempglyphs = {}
 scripttweaks = {
     "story03.bin": [
@@ -155,8 +162,8 @@ def writeBINString(f, s, maxlen=0, encoding="shift_jis"):
         s = split[0] + "UNK(03" + split2[0].zfill(2) + ")" + split2[1]
         split = s.split("<col", 1)
     if s.startswith("<<"):
-        s = common.wordwrap(s[2:], tempglyphs, wordwrap2, detectTextCode)
-        s = common.centerLines("<<" + s.replace("|", "|<<"), tempglyphs, wordwrap2, detectTextCode)
+        s = common.wordwrap(s[2:], tempglyphs, wordwrapfull, detectTextCode)
+        s = common.centerLines("<<" + s.replace("|", "|<<"), tempglyphs, wordwrapfull, detectTextCode)
     return common.writeEncodedString(f, s, maxlen, encoding)
 
 
