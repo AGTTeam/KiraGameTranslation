@@ -76,7 +76,7 @@ def repack(no_rom, bin, sce, img, nsbmd):
         common.copyFile(eplinein, eplineout)
         with common.Stream(eplineout, "rb+") as f:
             f.seek(0xb4)
-            f.writeUInt(0x14000)  # original: 0x24000
+            f.writeInt(-0x1d000)  # original: 0x24000
     if not no_rom:
         if os.path.isdir("data/replace_XAP/"):
             common.mergeFolder("data/replace_XAP/", "data/repack_XAP/")
