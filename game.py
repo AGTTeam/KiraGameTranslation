@@ -215,5 +215,5 @@ def readNSBMD(file):
 def writeNSBMD(file, nsbmd):
     for transpname in transpnsbmd:
         if transpname in file:
-            return True, True, True
-    return False, False, False
+            return True, True, True, "balloon/" in file
+    return False, False, False, False
