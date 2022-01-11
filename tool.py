@@ -3,7 +3,7 @@ import click
 import game
 from hacktools import common, nds, nitro
 
-version = "1.3.1"
+version = "1.3.2"
 romfile = "data/dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
@@ -70,6 +70,13 @@ def repack(no_rom, bin, sce, img, nsbmd):
     if all or nsbmd:
         common.copyFolder("data/extract/data/data/model/", "data/repack/data/data/model/")
         nitro.repackNSBMD("data/work_NSBMD/", "data/extract/data/data/model/", "data/repack/data/data/model/", readfunc=game.readNSBMD, writefunc=game.writeNSBMD)
+        # Tweak epline image position
+        eplinein = "data/extract/data/data/model/story/epline.nsbmd"
+        eplineout = eplinein.replace("/extract/", "/repack/")
+        common.copyFile(eplinein, eplineout)
+        with common.Stream(eplineout, "rb+") as f:
+            f.seek(0xb4)
+            f.writeUInt(0x14000)  # original: 0x24000
     if not no_rom:
         if os.path.isdir("data/replace_XAP/"):
             common.mergeFolder("data/replace_XAP/", "data/repack_XAP/")
