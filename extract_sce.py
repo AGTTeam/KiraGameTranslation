@@ -17,7 +17,7 @@ def run():
             for part in parts:
                 for string in part.strings:
                     sjis = string.sjis
-                    if sjis.endswith("<1F>"):
+                    if sjis.endswith("<1f>"):
                         sjis = sjis[:-4]
                     out.write(sjis + "=\n")
     common.logMessage("Done! Extracted", len(files), "files")

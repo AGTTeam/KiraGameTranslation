@@ -54,7 +54,7 @@ def run():
                     for string in part.strings:
                         sjis = string.sjis
                         add1f = False
-                        if sjis.endswith("<1F>"):
+                        if sjis.endswith("<1f>"):
                             sjis = sjis[:-4]
                             add1f = True
                         newsjis = ""
@@ -82,7 +82,7 @@ def run():
                         else:
                             newsjis = sjis
                         if add1f:
-                            newsjis += "<1F>"
+                            newsjis += "<1f>"
                         if newsjis in addedstrings:
                             string.sjisoff = addedstrings[newsjis]
                         else:

@@ -8,9 +8,7 @@ Download the latest [release](https://github.com/Illidanz/KiraGameTranslation/re
 Run `tool extract` to extract everything and `tool repack` to repack after editing.  
 Run `tool extract --help` or `tool repack --help` for more info.  
 ## Run from source
-Install [Python 3.8](https://www.python.org/downloads/) and pipenv.  
-Download [ndstool.exe](https://www.darkfader.net/ds/files/ndstool.exe).  
-Download xdelta.exe.  
+Install [Python 3](https://www.python.org/downloads/) and pipenv.  
 Run `pipenv sync`.  
 Run the tool with `pipenv run tool.py` or build with `pipenv run pyinstaller tool.spec`.  
 ## Text Editing
