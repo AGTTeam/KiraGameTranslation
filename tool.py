@@ -4,7 +4,7 @@ import game
 from hacktools import common, nds, nitro
 
 version = "1.4.0"
-romfile = "data/dn1.nds"
+romfile = "dn1.nds"
 rompatch = "data/dn1_patched.nds"
 infolder = "data/extract/"
 replacefolder = "data/replace/"
@@ -38,7 +38,7 @@ def extract(rom, bin, sce, img, nsbmd):
 
 
 @common.cli.command()
-@click.option("--no-rom", is_flag=True, default=False)
+@click.option("--no-rom", is_flag=True, default=False, hidden=True)
 @click.option("--bin", is_flag=True, default=False)
 @click.option("--sce", is_flag=True, default=False)
 @click.option("--img", is_flag=True, default=False)
@@ -89,8 +89,4 @@ def repack(no_rom, bin, sce, img, nsbmd):
 
 
 if __name__ == "__main__":
-    click.echo("KiraGameTranslation version " + version)
-    if not os.path.isdir("data"):
-        common.logError("data folder not found.")
-        quit()
-    common.runCLI(common.cli)
+    common.setupTool("KiraGameTranslation", version, "data", romfile, 0x144938ea)
