@@ -7,6 +7,3 @@ verify_ssl = true
 
 [packages]
 hacktools = {extras = ["armips", "cli", "graphics", "nds", "xdelta"], version = "*"}
-
-[requires]
-python_version = "3"
